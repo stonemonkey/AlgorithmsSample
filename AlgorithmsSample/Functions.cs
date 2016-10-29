@@ -95,12 +95,26 @@ namespace Basics
             if (n < 1 || n > 47)
                 throw new ArgumentOutOfRangeException(nameof(n));
 
-            if (n == 1)
-                return 0;
-            if (n == 2 || n == 3)
-                return 1;
+            var index = n - 1;
+            return FibonacciSequence(index).Skip(index).First();
+        }
 
-            return CalculateNthFibonacciNumber(n - 2) + CalculateNthFibonacciNumber(n - 1);
+        private static IEnumerable<int> FibonacciSequence(int lastIndex)
+        {
+            yield return 0;
+            yield return 1;
+            yield return 1;
+
+            int current = 1;
+            int previous = 1;
+            for (var i = 2; i < lastIndex; i++)
+            {
+                var next = current + previous;
+                previous = current;
+                current = next;
+
+                yield return next;
+            }
         }
 
         /// <summary>
