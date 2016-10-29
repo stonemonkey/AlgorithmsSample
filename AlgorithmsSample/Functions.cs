@@ -3,9 +3,48 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 
 namespace Basics
 {
+    [TestFixture]
+    public class ReverseStringTests
+    {
+        [Test]
+        [ExpectedException(
+            typeof(ArgumentNullException),
+            ExpectedMessage = "Value cannot be null.\r\nParameter name: value")]
+        public void ReverseString_throws_for_null_input()
+        {
+            Functions.ReverseString(null);
+        }
+
+        [Test]
+        public void ReverseString_returns_empty_for_empty_input()
+        {
+            var result = Functions.ReverseString(string.Empty);
+
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [Test]
+        public void ReverseString_returns_single_char_string_for_single_char_input()
+        {
+            var result = Functions.ReverseString("a");
+
+            Assert.AreEqual("a", result);
+        }
+
+        [Test]
+        public void ReverseString_returns_string_with_chars_in_reversed_order()
+        {
+            var result = Functions.ReverseString("12");
+
+            Assert.AreEqual("21", result);
+        }
+    }
+
     public class Functions
     {
         /// <summary>
@@ -15,7 +54,16 @@ namespace Basics
         /// <returns>Reversed string.</returns>
         public static string ReverseString(string value)
         {
-            throw new NotImplementedException();
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value == string.Empty)
+                return string.Empty;
+
+            var array = value.ToCharArray();
+            var reversedArray = array.Reverse().ToArray();
+
+            return new string(reversedArray);
         }
 
         /// <summary>
