@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
 
@@ -36,12 +37,14 @@ namespace Basics
             Assert.AreEqual("a", result);
         }
 
-        [Test]
-        public void ReverseString_returns_string_with_chars_in_reversed_order()
+        [TestCase("Mère", "erèM", Description = "Simple base chars")]
+        [TestCase("Me\u0301re", "ere\u0301M", Description = "Simple combined chars")]
+        public void ReverseString_returns_string_with_chars_in_reversed_order(
+            string input, string expected)
         {
-            var result = Functions.ReverseString("12");
+            var result = Functions.ReverseString(input);
 
-            Assert.AreEqual("21", result);
+            Assert.AreEqual(expected, result);
         }
     }
 
@@ -60,10 +63,22 @@ namespace Basics
             if (value == string.Empty)
                 return string.Empty;
 
-            var array = value.ToCharArray();
-            var reversedArray = array.Reverse().ToArray();
+            var elements = SplitTextElements(value);
+            return Concat(elements.Reverse());
+        }
 
-            return new string(reversedArray);
+        private static string Concat(IEnumerable<string> elements)
+        {
+            return string.Concat(elements);
+        }
+
+        private static IEnumerable<string> SplitTextElements(string input)
+        {
+            var enumerator = StringInfo.GetTextElementEnumerator(input);
+            while (enumerator.MoveNext())
+            {
+                yield return enumerator.GetTextElement();
+            }
         }
 
         /// <summary>
