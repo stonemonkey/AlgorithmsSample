@@ -5,11 +5,53 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using NUnit.Framework;
 
 namespace Basics
 {
+    [TestFixture]
+    public class FibonacciTests
+    {
+        [Test]
+        [ExpectedException(
+            typeof(ArgumentOutOfRangeException),
+            ExpectedMessage = "Specified argument was out of the range of valid values.\r\nParameter name: n")]
+        public void CalculateNthFibonacciNumber_throws_for_negative_input()
+        {
+            Functions.CalculateNthFibonacciNumber(-1);
+        }
+
+        [TestCase(1, 0)]
+        [TestCase(2, 1)]
+        [TestCase(3, 1)]
+        [TestCase(4, 2)]
+        [TestCase(5, 3)]
+        [TestCase(6, 5)]
+        [TestCase(7, 8)]
+        [TestCase(8, 13)]
+        [TestCase(47, 1836311903)]
+        public void CalculateNthFibonacciNumber_returns_corect_sequence_number_after_third_number_in_sequence(
+            int input, int expected)
+        {
+            var result = Functions.CalculateNthFibonacciNumber(input);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ArgumentOutOfRangeException),
+            ExpectedMessage = "Specified argument was out of the range of valid values.\r\nParameter name: n")]
+        public void CalculateNthFibonacciNumber_throws_for_input_with_result_over_int()
+        {
+            Functions.CalculateNthFibonacciNumber(48);
+        }
+    }
+
     public class Functions
     {
+        #region ReverseString
+        
         /// <summary>
         /// Reverses a string.
         /// </summary>
@@ -41,6 +83,8 @@ namespace Basics
             }
         }
 
+        #endregion
+
         /// <summary>
         /// Calculates the Nth fibonacci number.
         /// </summary>
@@ -48,7 +92,25 @@ namespace Basics
         /// <returns>The nth fibonacci number.</returns>
         public static int CalculateNthFibonacciNumber(int n)
         {
-            throw new NotImplementedException();
+            if (n < 1 || n > 47)
+                throw new ArgumentOutOfRangeException(nameof(n));
+
+            if (n == 1)
+                return 0;
+            if (n == 2 || n == 3)
+                return 1;
+
+            int previous = 1;
+            int current = 1;
+            int next = 0;
+            for (var i = 3; i < n; i++)
+            {
+                next = current + previous;
+                previous = current;
+                current = next;
+            }
+
+            return next;
         }
 
         /// <summary>
