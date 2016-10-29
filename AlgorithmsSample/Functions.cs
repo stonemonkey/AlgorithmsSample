@@ -100,17 +100,7 @@ namespace Basics
             if (n == 2 || n == 3)
                 return 1;
 
-            int previous = 1;
-            int current = 1;
-            int next = 0;
-            for (var i = 3; i < n; i++)
-            {
-                next = current + previous;
-                previous = current;
-                current = next;
-            }
-
-            return next;
+            return CalculateNthFibonacciNumber(n - 2) + CalculateNthFibonacciNumber(n - 1);
         }
 
         /// <summary>
