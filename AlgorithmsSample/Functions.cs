@@ -55,7 +55,8 @@ namespace Basics
         public static int CalculateNthFibonacciNumber(int n)
         {
             if (n < 1 || n > 47)
-                throw new ArgumentOutOfRangeException(nameof(n));
+                throw new ArgumentOutOfRangeException(
+                    nameof(n), "Number must be between 1 and 47.");
 
             var index = n - 1;
             return FibonacciSequence(index).Skip(index).First();
@@ -92,7 +93,8 @@ namespace Basics
         public static string PadNumberWithZeroes(int number)
         {
             if (number < 0 || number > 99999)
-                throw new ArgumentOutOfRangeException(nameof(number));
+                throw new ArgumentOutOfRangeException(
+                    nameof(number), "Number must be between 1 and 99999.");
 
             return number.ToString("D5");
         }

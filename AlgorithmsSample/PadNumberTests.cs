@@ -9,10 +9,11 @@ namespace Basics
     [TestFixture]
     public class PadNumberTests
     {
+        private const string OutOfRangeMessage = 
+            "Number must be between 1 and 99999.\r\nParameter name: number";
+
         [Test]
-        [ExpectedException(
-            typeof(ArgumentOutOfRangeException),
-            ExpectedMessage = "Specified argument was out of the range of valid values.\r\nParameter name: number")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = OutOfRangeMessage)]
         public void PadNumberWithZeroes_throws_for_negative_input()
         {
             Functions.PadNumberWithZeroes(-1);
@@ -29,9 +30,7 @@ namespace Basics
         }
 
         [Test]
-        [ExpectedException(
-            typeof(ArgumentOutOfRangeException),
-            ExpectedMessage = "Specified argument was out of the range of valid values.\r\nParameter name: number")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = OutOfRangeMessage)]
         public void PadNumberWithZeroes_throws_for_input_greather_then_99999()
         {
             Functions.PadNumberWithZeroes(100000);
