@@ -99,6 +99,8 @@ namespace Basics
 
         #endregion
 
+        #region LeapYear
+
         /// <summary>
         /// Determines if a year is a leap year.
         /// </summary>
@@ -106,8 +108,14 @@ namespace Basics
         /// <returns>True if leap year, false if not.</returns>
         public static bool IsLeapYear(int year)
         {
-            throw new NotImplementedException();
+            if (year < 1)
+                throw new ArgumentOutOfRangeException(
+                    nameof(year), "Year must be between 1 and int.MaxValue.");
+
+            return (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
         }
+
+        #endregion
 
         /// <summary>
         /// Find the N:th largest number in a range of numbers.
