@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FibonacciTests.cs" />
+    <Compile Include="FindNthLargestNumberTests.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="GregorianLeapYearTests.cs" />
     <Compile Include="PadNumberTests.cs" />

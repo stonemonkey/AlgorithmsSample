@@ -119,6 +119,12 @@ namespace Basics
 
         #endregion
 
+        #region FindNthLargestNumber
+
+        // I assume the return value should be the nth largest number from the input list not the
+        // third largest number and even the summary says "range" I assume it is meant to include 
+        // non distinct list of values since the input is a List<int>.
+
         /// <summary>
         /// Find the N:th largest number in a range of numbers.
         /// </summary>
@@ -126,8 +132,22 @@ namespace Basics
         /// <returns>The third largest number in list.</returns>
         public static int FindNthLargestNumber(List<int> numbers, int nthLargestNumber)
         {
-            throw new NotImplementedException();
+            if (numbers == null)
+                throw new ArgumentNullException(nameof(numbers));
+            if (nthLargestNumber < 1)
+                throw new ArgumentOutOfRangeException(
+                    nameof(nthLargestNumber),
+                    "Nth largest number must be greater than 0.");
+            if (nthLargestNumber > numbers.Count)
+                throw new ArgumentException(
+                    "Nth largest number must be less or equal than numbers list count.");
+
+            var sortedNumbers = numbers.OrderByDescending(x => x);
+
+            return sortedNumbers.Skip(nthLargestNumber - 1).First();
         }
+
+        #endregion
 
         /// <summary>
         /// Selects the prime numbers from a enumerable with numbers.
