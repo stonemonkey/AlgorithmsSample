@@ -148,6 +148,8 @@ namespace Basics
         }
 
         #endregion
+        
+        #region SelectPrimeNumbers
 
         /// <summary>
         /// Selects the prime numbers from a enumerable with numbers.
@@ -156,8 +158,32 @@ namespace Basics
         /// <returns>An enumerable with only prime numbers.</returns>
         public static IEnumerable<int> SelectPrimeNumbers(IEnumerable<int> numbers)
         {
-            throw new NotImplementedException();
+            if (numbers == null)
+                throw new ArgumentNullException(nameof(numbers));
+
+            return numbers.Where(IsPrime);
         }
+
+        private static bool IsPrime(int number)
+        {
+            if (number <= 1)
+                return false;
+            if (number == 2)
+                return true;
+            if (number % 2 == 0)
+                return false;
+
+            var sqrt = Math.Sqrt(number);
+            for (var i = 3; i <= sqrt; i += 2)
+            {
+                if (number % i == 0)
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
 
         /// <summary>
         /// Determines if the bit pattern of value the same if you reverse it.
