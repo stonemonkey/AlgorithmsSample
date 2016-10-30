@@ -45,6 +45,8 @@ namespace Basics
 
         #endregion
 
+        #region Fibonacci
+
         /// <summary>
         /// Calculates the Nth fibonacci number.
         /// </summary>
@@ -77,6 +79,10 @@ namespace Basics
             }
         }
 
+        #endregion
+
+        #region PadNumberWithZeroes
+
         /// <summary>
         /// Pads a number with up to four zeroes.
         /// </summary>
@@ -85,8 +91,13 @@ namespace Basics
         /// <remarks>Can only pad unsigned numbers up to 99999.</remarks>
         public static string PadNumberWithZeroes(int number)
         {
-            throw new NotImplementedException(); 
+            if (number < 0 || number > 99999)
+                throw new ArgumentOutOfRangeException(nameof(number));
+
+            return number.ToString("D5");
         }
+
+        #endregion
 
         /// <summary>
         /// Determines if a year is a leap year.

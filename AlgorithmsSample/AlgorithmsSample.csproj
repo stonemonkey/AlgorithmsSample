@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="FibonacciTests.cs" />
     <Compile Include="Functions.cs" />
+    <Compile Include="PadNumberTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseStringTests.cs" />
   </ItemGroup>

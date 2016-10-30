@@ -27,7 +27,7 @@ namespace Basics
         [TestCase(7, 8)]
         [TestCase(8, 13)]
         [TestCase(47, 1836311903)]
-        public void CalculateNthFibonacciNumber_returns_corect_number_in_sequence(
+        public void CalculateNthFibonacciNumber_returns_number_in_sequence_for_valid_input(
             int input, int expected)
         {
             var result = Functions.CalculateNthFibonacciNumber(input);
@@ -39,7 +39,7 @@ namespace Basics
         [ExpectedException(
             typeof(ArgumentOutOfRangeException),
             ExpectedMessage = "Specified argument was out of the range of valid values.\r\nParameter name: n")]
-        public void CalculateNthFibonacciNumber_throws_for_input_with_result_over_int()
+        public void CalculateNthFibonacciNumber_throws_for_input_with_result_over_max_int()
         {
             Functions.CalculateNthFibonacciNumber(48);
         }
