@@ -10,8 +10,6 @@ namespace Basics
 {
     public class Functions
     {
-        #region ReverseString
-        
         /// <summary>
         /// Reverses a string.
         /// </summary>
@@ -43,10 +41,6 @@ namespace Basics
             }
         }
 
-        #endregion
-
-        #region Fibonacci
-
         /// <summary>
         /// Calculates the Nth fibonacci number.
         /// </summary>
@@ -58,7 +52,7 @@ namespace Basics
                 throw new ArgumentOutOfRangeException(
                     nameof(n), "Number must be between 1 and 47.");
 
-            var index = n - 1;
+            int index = n - 1;
             return FibonacciSequence(index).Skip(index).First();
         }
 
@@ -80,10 +74,6 @@ namespace Basics
             }
         }
 
-        #endregion
-
-        #region PadNumberWithZeroes
-
         /// <summary>
         /// Pads a number with up to four zeroes.
         /// </summary>
@@ -99,10 +89,6 @@ namespace Basics
             return number.ToString("D5");
         }
 
-        #endregion
-
-        #region LeapYear
-
         /// <summary>
         /// Determines if a year is a leap year.
         /// </summary>
@@ -116,10 +102,6 @@ namespace Basics
 
             return (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
         }
-
-        #endregion
-
-        #region FindNthLargestNumber
 
         // I assume the return value should be the nth largest number from the input list not the
         // third largest number and even the summary says "range" I assume it is meant to include 
@@ -146,10 +128,6 @@ namespace Basics
 
             return sortedNumbers.Skip(nthLargestNumber - 1).First();
         }
-
-        #endregion
-        
-        #region SelectPrimeNumbers
 
         /// <summary>
         /// Selects the prime numbers from a enumerable with numbers.
@@ -183,8 +161,6 @@ namespace Basics
             return true;
         }
 
-        #endregion
-
         /// <summary>
         /// Determines if the bit pattern of value the same if you reverse it.
         /// </summary>
@@ -192,7 +168,23 @@ namespace Basics
         /// <returns>True if the bit value is a palindrome otherwise false.</returns>
         public static bool IsPalindrome(int value)
         {
-            throw new NotImplementedException();
+            var reversed = ReverseBitwiseNumber(value);
+
+            return value == reversed;
+        }
+
+        private static int ReverseBitwiseNumber(int value)
+        {
+            uint reversed = 0;
+            uint number = (uint) value;
+            while (number != 0)
+            {
+                uint bit = number & 1;
+                reversed = reversed << 1 | bit;
+                number = number >> 1;
+            } 
+
+            return (int) reversed;
         }
 
         /// <summary>
@@ -202,7 +194,15 @@ namespace Basics
         /// <returns>Number of bits in integer value.</returns>
         public static int CountSetBits(int value)
         {
-            throw new NotImplementedException();
+            int count = 0;
+            int number = value;
+            while (number != 0)
+            {
+                count++;
+                number = number & (number - 1);
+            }
+
+            return count;
         }
     }
 }
